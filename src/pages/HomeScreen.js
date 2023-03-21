@@ -1,8 +1,8 @@
-import Nav from './components/Nav';
+import Nav from '../components/Nav';
 import './HomeScreen.css';
-import Banner from './components/Banner';
-import Row from './components/Row';
-import requests from './api/Request';
+import Banner from '../components/Banner';
+import Row from '../components/Row';
+import requests from '../api/Request';
 function HomeScreen() {
   return (
     <div className='homeScreen'>
