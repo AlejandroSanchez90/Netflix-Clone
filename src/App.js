@@ -2,20 +2,24 @@ import React, { useEffect } from 'react';
 import './App.css';
 import HomeScreen from './pages/HomeScreen';
 import Login from './pages/Login';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
+import { login, logout, selectUser } from './features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
-  const user = null;
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const auth = getAuth();
     const userCredentials = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
-        console.log(userAuth);
+        dispatch(login({ uid: userAuth.uid, email: userAuth.email }));
       } else {
-        //logged out
+        dispatch(logout());
       }
     });
 

@@ -14,7 +14,6 @@ function Nav() {
   useEffect(() => {
     window.addEventListener('scroll', transitionNavBar);
     return () => {
-      console.log('OK');
       return window.removeEventListener('scroll', transitionNavBar);
     };
   }, []);
