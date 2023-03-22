@@ -10,6 +10,7 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     const fetchData = async () => {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
+      console.log(request.data);
       setIsLoading(false);
       return request;
     };
