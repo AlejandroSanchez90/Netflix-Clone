@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 .nav__black {
-  background-color: #111;
+  background-color: rgb(0, 0, 0, 0.9);
 }
 
 .nav__avatar {

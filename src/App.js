@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import HomeScreen from './pages/HomeScreen';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
@@ -44,6 +45,7 @@ function App() {
           <Login />
         ) : (
           <Routes>
+            <Route path='/profile' element={<Profile />} />
             <Route path='/' element={<HomeScreen />} />
           </Routes>
         )}

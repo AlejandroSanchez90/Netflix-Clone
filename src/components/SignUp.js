@@ -3,12 +3,12 @@ import './SignUp.css';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import db from '../firebase';
 import { toast } from 'react-toastify';
-
+import { useNavigate } from 'react-router-dom';
 function SignUp() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const auth = getAuth();
-
+  const navigate = useNavigate();
   const register = (e) => {
     e.preventDefault();
     try {
@@ -38,7 +38,7 @@ function SignUp() {
         emailRef.current.value,
         passwordRef.current.value
       );
-      console.log(userCredentials);
+      navigate('/');
     } catch (error) {
       alert(error.message);
     }
