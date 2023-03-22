@@ -1,0 +1,29 @@
+.card {
+  width: 300px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.card__content {
+  padding: 20px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.card__image,
+p {
+  background: linear-gradient(110deg, #111 8%, #222 18%, #333 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  animation: 1s shine ease-out infinite;
+}
+.card__image {
+  height: 200px;
+}
+.card__content {
+  padding: 20px;
+}
