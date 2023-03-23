@@ -11,14 +11,35 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import { loadStripe } from '@stripe/stripe-js';
-
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import { toast } from 'react-toastify';
+
 function Plans() {
   const [plans, setPlans] = useState([]);
   const user = useSelector(selectUser);
+  const [subscription, setSubscription] = useState(null);
+
+  useEffect(() => {
+    const fetchSub = async () => {
+      const customersCollection = collection(db, 'customers');
+      const userDoc = await doc(customersCollection, user.uid);
+      const subscriptionsCollection = collection(userDoc, 'subscriptions');
+      const subscriptionsSnapshot = await getDocs(subscriptionsCollection);
+
+      subscriptionsSnapshot.forEach((snapshot) => {
+        const subData = snapshot.data();
+        setSubscription({
+          role: subData.role,
+          current_period_end: subData.current_period_end.seconds,
+          current_period_start: subData.current_period_start.seconds,
+        });
+      });
+    };
+
+    fetchSub();
+  }, [user.uid]);
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -70,7 +91,7 @@ function Plans() {
       if (error) {
         toast.error(`An error occured: ${error.message}`);
       }
-      console.log(snap.data());
+
       if (sessionId) {
         const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -81,14 +102,25 @@ function Plans() {
 
   return (
     <div className='plans'>
+      {subscription && (
+        <p>Renewal date: {new Date(subscription.current_period_end * 1000).toLocaleDateString()}</p>
+      )}
       {Object.entries(plans).map(([productId, productData]) => {
+        const isCurrentPackage = productData.name
+          ?.toLowerCase()
+          .includes(subscription?.role.toLowerCase());
+        console.log(isCurrentPackage);
         return (
-          <div className='plans__plans' key={productId}>
+          <div
+            className={`${isCurrentPackage && 'plans__plans--disabled'} plans__plans`}
+            key={productId}>
             <div className='plans__info'>
               <h5>{productData.name}</h5>
               <h6>{truncate(productData.description, 40)}</h6>
             </div>
-            <button onClick={() => loadCheckout(productData.prices.priceId)}>Subscribe</button>
+            <button onClick={() => !isCurrentPackage && loadCheckout(productData.prices.priceId)}>
+              {isCurrentPackage ? 'Current Package' : 'Subscribe'}
+            </button>
           </div>
         );
       })}
