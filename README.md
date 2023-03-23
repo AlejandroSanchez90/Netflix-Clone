@@ -6,4 +6,4 @@ This website have the movie fetching to populate the data, and have full subscri
 
 # Preview
 
-[DEMO](https://netflix-clone-mu-dusky.vercel.app/)
+[DEMO](netflix-clone-five-gray.vercel.app)
