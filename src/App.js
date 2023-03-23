@@ -25,7 +25,7 @@ function App() {
     });
 
     return userCredentials;
-  }, []);
+  }, [dispatch]);
   return (
     <div className='app'>
       <ToastContainer

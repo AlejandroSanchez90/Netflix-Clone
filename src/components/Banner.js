@@ -24,7 +24,6 @@ function Banner() {
     <header
       className='banner'
       style={{
-        // backgroundImage: 'url(https://i.imgur.com/e1hLQ2m.png)',
         backgroundImage: `url("https://image.tmdb.org/t/p/original${movie?.backdrop_path}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center center',

@@ -13,7 +13,7 @@ function SignUp() {
     e.preventDefault();
     try {
       const register = async () => {
-        const userCredentials = await createUserWithEmailAndPassword(
+        await createUserWithEmailAndPassword(
           auth,
           emailRef.current.value,
           passwordRef.current.value
@@ -33,11 +33,7 @@ function SignUp() {
   const signIn = async (e) => {
     e.preventDefault();
     try {
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      );
+      await signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
       navigate('/');
     } catch (error) {
       alert(error.message);

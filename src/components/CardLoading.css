@@ -15,12 +15,6 @@
 }
 
 .card__image,
-p {
-  background: linear-gradient(110deg, #111 8%, #222 18%, #333 33%);
-  border-radius: 5px;
-  background-size: 200% 100%;
-  animation: 1s shine ease-out infinite;
-}
 .card__image {
   height: 200px;
 }
